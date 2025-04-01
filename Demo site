@@ -1,0 +1,139 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class swag {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+ WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.saucedemo.com/");
+
+        // ------------------- Valid Credentials -------------------
+        WebElement D = driver.findElement(By.cssSelector("#user-name"));
+        D.sendKeys("standard_user");
+
+        WebElement D1 = driver.findElement(By.cssSelector("#password"));
+        D1.sendKeys("secret_sauce");
+
+        WebElement D2 = driver.findElement(By.cssSelector("#login-button"));
+        D2.click();
+
+        // Check if login successful
+        if (driver.getCurrentUrl().contains("inventory.html")) {
+            System.out.println(" Valid Login Successful!");
+        } else {
+            System.out.println(" Valid Login Failed!");
+        }
+
+        // Go back to login page
+        driver.get("https://www.saucedemo.com/");
+
+        // ------------------- Invalid Credentials -------------------
+
+        // 1. Valid Username, Invalid Password
+        WebElement D3 = driver.findElement(By.cssSelector("#user-name"));
+        D3.clear();
+        D3.sendKeys("standard_user");
+
+        WebElement D4 = driver.findElement(By.cssSelector("#password"));
+        D4.clear();
+        D4.sendKeys("wrong_password");
+
+        WebElement D5 = driver.findElement(By.cssSelector("#login-button"));
+        D5.click();
+
+        WebElement error1 = driver.findElement(By.cssSelector("[data-test='error']"));
+        System.out.println(" Invalid Login Error (Valid username, Invalid password): " + error1.getText());
+
+        driver.get("https://www.saucedemo.com/");
+
+        // 2. Invalid Username, Valid Password
+        WebElement D6 = driver.findElement(By.cssSelector("#user-name"));
+        D6.clear();
+        D6.sendKeys("wrong_user");
+
+        WebElement D7 = driver.findElement(By.cssSelector("#password"));
+        D7.clear();
+        D7.sendKeys("secret_sauce");
+
+        WebElement D8 = driver.findElement(By.cssSelector("#login-button"));
+        D8.click();
+
+        WebElement error2 = driver.findElement(By.cssSelector("[data-test='error']"));
+        System.out.println("Invalid Login Error (Invalid username, Valid password): " + error2.getText());
+
+        driver.get("https://www.saucedemo.com/");
+
+        // 3. Invalid Username, Invalid Password
+        WebElement D9 = driver.findElement(By.cssSelector("#user-name"));
+        D9.clear();
+        D9.sendKeys("wrong_user");
+
+        WebElement D10 = driver.findElement(By.cssSelector("#password"));
+        D10.clear();
+        D10.sendKeys("wrong_password");
+
+        WebElement D11 = driver.findElement(By.cssSelector("#login-button"));
+        D11.click();
+
+        WebElement error3 = driver.findElement(By.cssSelector("[data-test='error']"));
+        System.out.println(" Invalid Login Error (Invalid username & password): " + error3.getText());
+
+        driver.get("https://www.saucedemo.com/");
+
+        // 4. Empty Username & Password
+        WebElement D12 = driver.findElement(By.cssSelector("#user-name"));
+        D12.clear();
+        D12.sendKeys("");
+
+        WebElement D13 = driver.findElement(By.cssSelector("#password"));
+        D13.clear();
+        D13.sendKeys("");
+
+        WebElement D14 = driver.findElement(By.cssSelector("#login-button"));
+        D14.click();
+
+        WebElement error4 = driver.findElement(By.cssSelector("[data-test='error']"));
+        System.out.println(" Invalid Login Error (Empty username & password): " + error4.getText());
+
+        // 5. Empty Username, Valid Password
+        driver.get("https://www.saucedemo.com/");
+
+        WebElement D15 = driver.findElement(By.cssSelector("#user-name"));
+        D15.clear();
+        D15.sendKeys("");
+
+        WebElement D16 = driver.findElement(By.cssSelector("#password"));
+        D16.clear();
+        D16.sendKeys("secret_sauce");
+
+        WebElement D17 = driver.findElement(By.cssSelector("#login-button"));
+        D17.click();
+
+        WebElement error5 = driver.findElement(By.cssSelector("[data-test='error']"));
+        System.out.println(" Invalid Login Error (Empty username, Valid password): " + error5.getText());
+
+        // 6. Valid Username, Empty Password
+        driver.get("https://www.saucedemo.com/");
+
+        WebElement D18 = driver.findElement(By.cssSelector("#user-name"));
+        D18.clear();
+        D18.sendKeys("standard_user");
+
+        WebElement D19 = driver.findElement(By.cssSelector("#password"));
+        D19.clear();
+        D19.sendKeys("");
+
+        WebElement D20 = driver.findElement(By.cssSelector("#login-button"));
+        D20.click();
+
+        WebElement error6 = driver.findElement(By.cssSelector("[data-test='error']"));
+        System.out.println(" Invalid Login Error (Valid username, Empty password): " + error6.getText());
+
+        // Quit browser
+        driver.quit();
+    }
+}
